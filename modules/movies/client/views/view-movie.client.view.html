@@ -1,5 +1,8 @@
 <section>
   <ng-include src="'modules/movies/client/views/nav-movie.client.html'"></ng-include>
-  <h1 data-ng-bind="vm.movie.title"></h1>
+  <div class="form-group">
+    <h1 data-ng-bind="vm.movie.title"></h1><a ng-click="vm.remove()" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+  </div>
+  </span>
   <youtube src="vm.movie.url"></youtube>
 </section>

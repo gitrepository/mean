@@ -46,21 +46,18 @@
         },
         data: {
           roles: ['user', 'admin'],
-          editView: true,
           pageTitle: 'Edit Movie {{ movieResolve.name }}'
         }
       })
       .state('movies.view', {
         url: '/:movieId',
         templateUrl: 'modules/movies/client/views/view-movie.client.view.html',
-
         controller: 'MoviesController',
         controllerAs: 'vm',
         resolve: {
           movieResolve: getMovie
         },
         data: {
-          editView: false,
           pageTitle: 'Movie {{ articleResolve.name }}'
         }
       });

@@ -13,9 +13,7 @@
               <span data-ng-bind="customer.created | date:'short'"></span>
 
               <span class="pull-right">
-                <button class="btn btn-default btn-sm" ng-click="customersCtrl.remove(customer)">
-                  <i class="glyphicon glyphicon-trash"></i>
-                </button>
+                 <a ng-href="/#/movie-delete/{{ movie._id }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle"></span></a>
               </span>
 
             </small>
