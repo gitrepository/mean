@@ -22,7 +22,7 @@
     function remove() {
       console.log('l');
       alert('l');
-       
+
       if (confirm('Are you sure you want to delete?')) {
         vm.movie.$remove($state.go('movies.list'));
       }
@@ -30,13 +30,11 @@
 
     // Save Movie
     function save(isValid) {
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'vm.form.movieForm');
-        return false;
-      }
-      if (vm.movie.url.indexOf('watch?v=') > 0) {
-        vm.movie.url = vm.movie.url.replace('watch?v=', 'embed/');
-      }
+      var file = $scope.myFile;
+
+      vm.movie.filefield = file;
+
+      console.log(vm.movie);
 
       // TODO: move create/update logic to service
       if (vm.movie._id) {

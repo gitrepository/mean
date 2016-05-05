@@ -1,0 +1,63 @@
+<section>
+	<div ng-show="{{! vm.movie._id}}">
+  <div class="page-header" ng-hide="{{vm.movie._id}}">
+    <h2>New Movie</h2>
+  </div>
+	</div>
+  <div class="col-md-12">
+    <form name="vm.form.movieForm" class="form-horizontal" ng-submit="vm.save(vm.form.movieForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Name</label>
+          <input name="title" type="text" ng-model="vm.movie.title" id="title" class="form-control" placeholder="title" required>
+          <div ng-messages="vm.form.movieForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Movie name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="category">category</label>
+          <input name="category" type="text" ng-model="vm.movie.category" id="category" class="form-control" placeholder="category" required>
+          <div ng-messages="vm.form.movieForm.category.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Movie name is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="url">url</label>
+          <input name="url" type="text" ng-model="vm.movie.url" id="url" class="form-control" placeholder="url" required>
+
+          <div ng-messages="vm.form.movieForm.url.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Movie name is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.movie._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+
+
+
+        <div class="form-group">
+          <label class="control-label" for="articleimage">Article Picture</label>
+          <div class="controls">
+            <input id="articleimage" type="file" ng-file-select="" ng-model="picFile" name="file" accept="image/*" ng-file-change="generateThumb(picFile[0], $files)" required="">
+            <br/>
+            <img ng-show="picFile[0].dataUrl != null" ng-src="{{picFile[0].dataUrl}}" class="img-thumbnail" height="50" width="100">
+            <span class="progress" ng-show="picFile[0].progress >= 0">
+                        <div style="width:{{picFile[0].progress}}%" ng-bind="picFile[0].progress + '%'" class="ng-binding"></div>
+                    </span>
+            <span ng-show="picFile[0].result">Upload Successful</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default" ng-disabled="!articleForm.$valid" ng-click="uploadPic(picFile)">
+        </div>
+        <div data-ng-show="error" class="text-danger">
+          <strong data-ng-bind="error"></strong>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</section>

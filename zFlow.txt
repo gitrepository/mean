@@ -1,0 +1,106 @@
+###
+Things to Know
+
+#**
+Using ui-router ($state/$stateProvider) NOT ngRoute ($route/$routeProvider)
+
+# This is an abstract state
+# Application cannot get to this state as it is abstract\
+# Children can inherit this state
+
+.state('crudpocs', {
+    	abstract: true,
+			--### URL Reference
+    	url: '/crudpocs',
+			--### Injects <ui-view/> place holder for view partials.
+    	template: '<ui-view/>'
+		}
+
+2
+	--### Child state of 'crudpocs'
+	.state('crudpocs.list', {
+		--### /crudpocs After inserting the place holder (prev) this url('') is called
+		url: '',
+		--### View Template
+		templateUrl: 'modules/crudpocs/client/views/list-crudpocs.client.view.html',
+		--### Controller to call (calls the constructor of the controller)
+		controller: 'CrudpocsListController',
+		--### Alias
+		controllerAs: 'vm',
+		data: {
+			pageTitle: 'Crudpocs List'
+		}
+	})
+
+#**
+Using $resource (service in module ngResource)
+A factory which creates a resource object that lets you interact with RESTful server-side data sources
+
+var User = $resource('api/crudpocs/:crudpocId'{}) returns an Object which lets you interact with 
+-RESTful server-side data sources.
+
+return Object
+{ '$get':    {method:'GET'},
+  '$save':   {method:'POST'},
+  '$query':  {method:'GET', isArray:true},
+  '$remove': {method:'DELETE'},
+  '$delete': {method:'DELETE'} };
+	
+User.query();
+
+
+
+
+
+
+###
+#/crudpocs: crudpocs.client.routes.js: Defines a flow for the above route.
+
+Students --> List Students
+* Route '/students ends loading State 'students.list'
+* Its parent state (abstract) 'students' will be activated first and once done will activate the child (students.list).
+
+* The controller 'StudentsListController' assigned to state 'students.list' is instantiated (call constructor).
+* Controller calls 'StudentsService.query()'.
+* StudentsService is uses $resource (ngResource/ RestAngular) to connect to Server side REST API. 
+* StudentsService returns ngResource (RestAngular) object back (shown below)
+		{ '$get':    {method:'GET'},
+			'$save':   {method:'POST'},
+			'$query':  {method:'GET', isArray:true},
+			'$remove': {method:'DELETE'},
+			'$delete': {method:'DELETE'} 
+			
+			'$update': {method:'PUT'} -- defined in the StudentsService
+		};
+* $resource maps to server side REST api defined at $resource('api/students/:studentId'..) and 
+ -returns a $resource object (defined above).
+
+* StudentsService.query() returns a array of associated Mongoose Objects.
+	- Crudpoc.find().sort('-created').populate('user', 'displayName')...
+
+1
+	--### Parent Abstract state cannot be reached by URL
+	.state('crudpocs', {
+    	abstract: true,
+			--### URL Reference
+    	url: '/crudpocs',
+			--### Injects <ui-view/> place holder for view partials.
+    	template: '<ui-view/>'
+		}
+
+2
+	--### Child state of 'crudpocs'
+	.state('crudpocs.list', {
+		--### /crudpocs After inserting the place holder (prev) this url('') is called
+		url: '',
+		--### View Template
+		templateUrl: 'modules/crudpocs/client/views/list-crudpocs.client.view.html',
+		--### Controller to call (calls the constructor of the controller)
+		controller: 'CrudpocsListController',
+		--### Alias
+		controllerAs: 'vm',
+		data: {
+			pageTitle: 'Crudpocs List'
+		}
+	})
+

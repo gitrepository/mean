@@ -1,0 +1,63 @@
+<section>
+  <div class="col-md-12">
+    <h1>
+				People
+		</h1>
+    <button type="button" class="btn btn-primary btn-sm">
+      AddPerson
+    </button>
+    <br/>
+    <br/>
+    <table class="table table-hover table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone #</th>
+          <th>State</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr data-ng-repeat="person in vm.people">
+          <td>{{person.name}}</td>
+          <td>{{person.phoneNumber}}</td>
+          <td>{{person.state}}</td>
+          <td>
+            <a class="btn btn-primary" data-ui-sref="people.view({ personId: person._id })">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-danger" data-ng-click="vm.remove()">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</section>
+
+
+<!--
+<section>
+  <div class="page-header">
+    <h1>People</h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="person in vm.people" data-ui-sref="people.view({ personId: person._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="person.created | date:'mediumDate'"></span>
+        by
+        <span data-ng-if="person.user" data-ng-bind="person.user.displayName"></span>
+        <span data-ng-if="!person.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="person.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.people.$resolved && !vm.people.length">
+    No People yet, why don't you <a data-ui-sref="people.create">create one</a>?
+  </div>
+</section>
+-->

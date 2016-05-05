@@ -17,6 +17,12 @@ module.exports = function(app) {
     .put(movies.update)
     .delete(movies.delete);
 
+  app.route('/api/moviesUpload')
+    .post(movies.upload);
+
+  app.route('/api/moviesUpload/:filename')
+    .get(movies.uploadRead);
+
   // Finish by binding the Movie middleware
   app.param('movieId', movies.movieByID);
 };
