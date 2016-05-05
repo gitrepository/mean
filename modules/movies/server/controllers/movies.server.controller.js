@@ -17,15 +17,13 @@ var gfs = new Grid(mongoose.connection.db);
  * Movies Upload
  */
 exports.upload = function(req, res) {
-    console.log('In Upload method');
-
-    var part = req.files.filefield;
+    var part = req.files.file;
 
     var writeStream = gfs.createWriteStream({
         filename: part.name,
         mode: 'w',
         content_type: part.mimetype
-    });
+		});
 
 
     writeStream.on('close', function() {
@@ -37,7 +35,6 @@ exports.upload = function(req, res) {
     writeStream.write(part.data);
 
     writeStream.end();
-
 };
 
 
@@ -94,7 +91,7 @@ exports.create = function(req, res) {
 
 
     var part = req.body.filefield;
-    console.log(part.name);
+    console.log(part);
     /*
 
     var writeStream = gfs.createWriteStream({
